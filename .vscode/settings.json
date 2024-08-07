@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "condition_variable": "cpp",
+        "functional": "cpp",
+        "thread": "cpp",
+        "array": "cpp",
+        "string": "cpp",
+        "string_view": "cpp"
+    }
+}

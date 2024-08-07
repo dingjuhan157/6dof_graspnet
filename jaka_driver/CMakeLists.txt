@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   moveit_msgs
   actionlib
   actionlib_msgs
+  tf2
 )
 
 ## System dependencies are found with CMake's conventions

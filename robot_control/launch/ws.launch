@@ -1,0 +1,16 @@
+<launch>
+  <!-- Launch the robot control node -->
+  <node name="robot_control_node" pkg="robot_control" type="robot_control_node" output="screen">
+    <!-- Add any parameters the node might need -->
+    <param name="websocket_url" value="ws://192.168.1.102:9090" />
+    <!-- Add more parameters as needed -->
+  </node>
+
+  <!-- Launch the node that publishes distance information -->
+  <!-- Assuming there's a node that publishes to the topic the robot_control_node subscribes to -->
+  <node pkg="yolov5_ros" type="yolo_v5.py" name="yolov5_ros" output="screen" >
+    <!-- Add any parameters for the distance publisher -->
+  </node>
+
+  <!-- You can add more nodes or include other launch files as needed -->
+</launch>

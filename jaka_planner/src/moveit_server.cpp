@@ -134,7 +134,7 @@ int main(int argc, char *argv[])
     ros::init(argc, argv, "moveit_server");
     ros::NodeHandle nh;
     string default_ip = "10.5.5.100";
-    string default_model = "zu3";
+    string default_model = "zu7";
     string robot_ip = nh.param("ip", default_ip);
     string robot_model = nh.param("model", default_model);
     robot.login_in(robot_ip.c_str());

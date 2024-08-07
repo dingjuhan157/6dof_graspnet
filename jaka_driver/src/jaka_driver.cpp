@@ -2,8 +2,10 @@
 #include "std_msgs/String.h"
 #include "std_srvs/Empty.h"
 #include "std_srvs/SetBool.h"
-#include "geometry_msgs/TwistStamped.h"
+//#include "geometry_msgs/TwistStamped.h"
+#include <geometry_msgs/PoseStamped.h>
 #include "sensor_msgs/JointState.h"
+#include <tf2/LinearMath/Quaternion.h>
 
 #include "Eigen/Dense"
 #include "Eigen/Core"
@@ -64,8 +66,9 @@ map<int, string>mapErr = {
     {-12,"ERR_MOTION_ABNORMAL"}
 };
 
-ros::Publisher tool_position_pub ;
-ros::Publisher joint_position_pub ;
+ros::Publisher tool_position_pub;
+
+ros::Publisher joint_position_pub;
 ros::Publisher robot_state_pub;
 
 bool linear_move_callback(jaka_msgs::Move::Request &request,
@@ -677,16 +680,18 @@ bool clear_error_callback(jaka_msgs::ClearError::Request &request,
 }
 */
 
-void tool_position_callback(ros::Publisher tool_position_pub)
+/*void tool_position_callback(ros::Publisher tool_position_pub)
 {
     geometry_msgs::TwistStamped  tool_position;
+    
     RobotStatus robotstatus;
     RotMatrix rot;
     Rpy rpy;
     robot.get_robot_status(&robotstatus);
-    tool_position.twist.linear.x = robotstatus.cartesiantran_position[0];
-    tool_position.twist.linear.y = robotstatus.cartesiantran_position[1];
-    tool_position.twist.linear.z = robotstatus.cartesiantran_position[2];
+
+    tool_position.pose.position.x = robotstatus.cartesiantran_position[0];
+    tool_position.pose.position.y = robotstatus.cartesiantran_position[1];
+    tool_position.pose.position.z = robotstatus.cartesiantran_position[2];
     rpy.rx = robotstatus.cartesiantran_position[3];
     rpy.ry = robotstatus.cartesiantran_position[4];
     rpy.rz = robotstatus.cartesiantran_position[5];
@@ -716,8 +721,40 @@ void tool_position_callback(ros::Publisher tool_position_pub)
     
     tool_position.header.stamp = ros::Time::now();
     tool_position_pub.publish(tool_position);
-}
+}*/
 
+
+void tool_position_callback(ros::Publisher& tool_position_pub)
+{
+    geometry_msgs::PoseStamped tool_position;
+    
+    RobotStatus robotstatus;
+    RotMatrix rot;
+    Rpy rpy;
+    robot.get_robot_status(&robotstatus);
+
+    tool_position.pose.position.x = robotstatus.cartesiantran_position[0];
+    tool_position.pose.position.y = robotstatus.cartesiantran_position[1];
+    tool_position.pose.position.z = robotstatus.cartesiantran_position[2];
+    
+    rpy.rx = robotstatus.cartesiantran_position[3];
+    rpy.ry = robotstatus.cartesiantran_position[4];
+    rpy.rz = robotstatus.cartesiantran_position[5];
+    
+    // Convert RPY to quaternion
+    tf2::Quaternion q;
+    q.setRPY(rpy.rx, rpy.ry, rpy.rz);
+    
+    tool_position.pose.orientation.x = q.x();
+    tool_position.pose.orientation.y = q.y();
+    tool_position.pose.orientation.z = q.z();
+    tool_position.pose.orientation.w = q.w();
+
+    tool_position.header.stamp = ros::Time::now();
+    tool_position.header.frame_id = "base_link";  // Assuming the base frame is called "base_link"
+    
+    tool_position_pub.publish(tool_position);
+}
 void joint_position_callback(ros::Publisher joint_position_pub)
 {
     sensor_msgs::JointState joint_position;
@@ -894,7 +931,9 @@ int main(int argc, char *argv[])
    // ros::Publisher robot_state_pub = nh.advertise<jaka_msgs::RobotMsg>("/jaka_driver/robot_states", 10);
 
     //3.1 End position pose status information reporting
-   tool_position_pub = nh.advertise<geometry_msgs::TwistStamped>("/jaka_driver/tool_position", 10);
+    //tool_position_pub = nh.advertise<geometry_msgs::TwistStamped>("/jaka_driver/tool_position", 10);
+    tool_position_pub = nh.advertise<geometry_msgs::PoseStamped>("/jaka_driver/tool_position", 10);
+   
     //3.2 Joint status information reporting
     joint_position_pub = nh.advertise<sensor_msgs::JointState>("/jaka_driver/joint_position", 10);
     //3.3 Report robot event status information

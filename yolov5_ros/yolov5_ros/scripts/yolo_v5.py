@@ -6,7 +6,7 @@ import torch
 import rospy
 import numpy as np
 
-from std_msgs.msg import Header
+from std_msgs.msg import Header, Float32  
 from sensor_msgs.msg import Image
 from yolov5_ros_msgs.msg import BoundingBox, BoundingBoxes
 
@@ -25,8 +25,7 @@ class Yolo_Dect:
         conf = rospy.get_param('~conf', '0.5')
 
         # load local repository(YoloV5:v6.0)
-        self.model = torch.hub.load(yolov5_path, 'custom',
-                                    path=weight_path, source='local')
+        self.model = torch.hub.load(yolov5_path, 'custom',path=weight_path, source='local')
 
         # which device will be used
         if (rospy.get_param('/use_cpu', 'true')):
@@ -48,11 +47,10 @@ class Yolo_Dect:
         self.depth_sub = rospy.Subscriber(depth_topic, Image, self.depth_callback,
                                           queue_size=1, buff_size=52428800)
         # output publishers
-        self.position_pub = rospy.Publisher(
-            pub_topic,  BoundingBoxes, queue_size=1)
-
-        self.image_pub = rospy.Publisher(
-            '/yolov5/detection_image',  Image, queue_size=1)
+        self.position_pub = rospy.Publisher(pub_topic,  BoundingBoxes, queue_size=1)
+        self.image_pub = rospy.Publisher('/yolov5/detection_image',  Image, queue_size=1)
+        # 添加距离发布者
+        self.distance_pub = rospy.Publisher('/yolov5/distance', Float32, queue_size=1)
 
         # if no image messages
         while (not self.getImageStatus) :
@@ -127,6 +125,8 @@ class Yolo_Dect:
                 cv2.putText(img, coord_text, (int(box[0]), int(box[3])+20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
             self.boundingBoxes.bounding_boxes.append(boundingBox)
             self.position_pub.publish(self.boundingBoxes)
+            # 发布距离信息
+            self.distance_pub.publish(Float32(Dis))
         self.publish_image(img, height, width)
         cv2.imshow('YOLOv5', img)
 
