@@ -1,0 +1,7 @@
+<launch>
+  <node pkg="camera_robot_tf_broadcaster" 
+        type="camera_robot_tf_broadcaster.py" 
+        name="camera_robot_tf_broadcaster" 
+        output="screen">
+  </node>
+</launch>

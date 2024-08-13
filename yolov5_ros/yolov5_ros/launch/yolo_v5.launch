@@ -13,7 +13,8 @@
     <param name="image_topic"       value="/camera/color/image_raw" />
     <param name="depth_topic"       value="/camera/depth/image_rect_raw" />
     <param name="pub_topic"         value="/yolov5/BoundingBoxes" />
-    <param name="camera_frame"       value="camera_color_frame"/>
+    <param name="camera_frame"      value="camera_color_frame"/>
+    <param name="camera_color"      value="camera_color_optical_frame"/>
     <param name="conf"              value="0.3" />
   </node>
 
