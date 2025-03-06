@@ -87,7 +87,7 @@
 
 ## 3.Realsens D435 驱动安装和Ros功能包
 
-- **ubuntu安装参考连接:**https://zhuanlan.zhihu.com/p/371410573
+- **ubuntu安装参考连接**:https://zhuanlan.zhihu.com/p/371410573
 - **ubuntu安装参考连接**:https://blog.csdn.net/ZNC1998/article/details/132174375
 - **jetnano安装参考连接**:http://admin.guyuehome.com/43699
 
@@ -95,7 +95,7 @@
 
 - 1.手眼标定参考链接：https://blog.csdn.net/weixin_42157689/article/details/134719924?spm=1001.2014.3001.5502
 - 2.世界坐标系和相机坐标系,图像坐标系的关系:https://blog.csdn.net/waeceo/article/details/50580607?tdsourcetag=s_pcqq_aiomsg
-- 3.待续。。。
+- 3.手眼标定:https://zhuanlan.zhihu.com/p/62292112。
 
 ## 5.YOLOv5训练自己的数据集
 
@@ -109,7 +109,7 @@
 
 ## 7.agilex松灵Ros功能包
 
-### 7.1 先跑通Navis 的websocket的API Demo
+### 7.1 Navis 的websocket的API Demo
 
 - https://github.com/agilexrobotics/Navis 
 - 参考readme文档配置相关环境
@@ -118,15 +118,9 @@
 
 - 参考源码的robot control
 
-## 8.Ros入门
+## 8.graspnet
 
-- ### 6.1 古月居ros21讲
-
-  https://www.bilibili.com/video/BV1zt411G7Vn/?spm_id_from=333.337.search-card.all.click&vd_source=71361ea6cd3c47b0d61ee2359ca7265d
-
-- ### 6.2 ros常用指令
-
-![image-20240806142055173](.assets/image-20240806142055173.png)
+- 通用物体抓取:https://github.com/graspnet/graspnetAPI
 
 ## 9.ros_command
 - ### #手眼标定
