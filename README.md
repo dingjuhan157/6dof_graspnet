@@ -128,7 +128,7 @@
 
 ![image-20240806142055173](.assets/image-20240806142055173.png)
 
-- ## 9.ros_command
+## 9.ros_command
 - ### #手眼标定
 
   roslaunch realsense2_camera rs_camera.launch
