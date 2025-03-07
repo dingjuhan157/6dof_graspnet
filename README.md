@@ -6,7 +6,7 @@
 
 ### 1.2镜像烧录
 
-## 2.安装Ros
+## 2.安装ROS
 
 ### 2.1 一键安装
 
@@ -85,7 +85,7 @@
   现在已经成功安装了 ROS 并创建了一个工作空间。可以开始编写、构建和运行 ROS 软件包了。
 
 
-## 3.Realsens D435 驱动安装和Ros功能包
+## 3.Realsens D435 驱动安装和ROS功能包
 
 - **ubuntu安装参考连接**:https://zhuanlan.zhihu.com/p/371410573
 - **ubuntu安装参考连接**:https://blog.csdn.net/ZNC1998/article/details/132174375
@@ -97,24 +97,24 @@
 - 2.世界坐标系和相机坐标系,图像坐标系的关系:https://blog.csdn.net/waeceo/article/details/50580607?tdsourcetag=s_pcqq_aiomsg
 - 3.手眼标定:https://zhuanlan.zhihu.com/p/62292112。
 
-## 5.YOLOv5训练自己的数据集
+## 5.yolov5训练自己的数据集
 
 - 1.利用yolov5训练自己数据集:https://blog.csdn.net/qq_36756866/article/details/109111065
 
-## 6. JAKA机械臂Ros功能包
+## 6. JAKA机械臂ROS功能包
 
-### 6.1 ros功能包 https://github.com/JakaCobot/jaka_robot
+### 6.1 ROS功能包 https://github.com/JakaCobot/jaka_robot
 
 ### 6.2 参考功能包的jaka_ros使用说明
 
-## 7.agilex松灵Ros功能包
+## 7.agilex松灵ROS功能包
 
 ### 7.1 Navis 的websocket的API Demo
 
 - https://github.com/agilexrobotics/Navis 
 - 参考readme文档配置相关环境
 
-### 7.2 封装ros功能包
+### 7.2 封装ROS功能包
 
 - 参考源码的robot control
 
@@ -142,8 +142,6 @@
   roslaunch realsense2_camera rs_camera.launch
   
   roslaunch yolov5_ros yolo_v5.launch
-  
-  rosrun tf static_transform_publisher 0.5 0 0.3 0 0 0 world camera_link 100
   
   roslaunch jaka_planner moveit_server.launch ip:=10.5.5.100 model:=zu7 
   
