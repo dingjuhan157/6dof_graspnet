@@ -123,55 +123,54 @@
 - 通用物体抓取:https://github.com/graspnet/graspnetAPI
 
 ## 9.ros_command
-#### 手眼标定
+- #### 手眼标定
 
-roslaunch realsense2_camera rs_camera.launch
+  roslaunch realsense2_camera rs_camera.launch
+  
+  roslaunch aruco_ros single_realsense.launch
+  
+  rosrun image_view image_view image:=/aruco_single/result
+  
+  roslaunch jaka_planner moveit_server.launch ip:=192.168.1.100 model:=zu7 
+  
+  roslaunch jaka_zu7_moveit_config demo.launch
+  
+  roslaunch easy_handeye jaka_eye_to_hand_calibration.launch
 
-roslaunch aruco_ros single_realsense.launch
+- #### 测试
+  roslaunch easy_handeye publish.launch
 
-rosrun image_view image_view image:=/aruco_single/result
+- #### 查看相机与机械臂基座标系的TF转换：
+  rosrun tf tf_echo /Link_0 /camera_color_frame
 
-roslaunch jaka_planner moveit_server.launch ip:=192.168.1.100 model:=zu7 
+- #### 检测到marker标签，会显示marker在相机坐标系下的位姿：
+  rostopic echo /aruco_single/pose
+  
+- #### yolov5 node
 
-roslaunch jaka_zu7_moveit_config demo.launch
+  roslaunch realsense2_camera rs_camera.launch
+  
+  roslaunch yolov5_ros yolo_v5.launch
+  
+  roslaunch jaka_planner moveit_server.launch ip:=192.168.1.100 model:=zu7 
+  
+  roslaunch jaka_zu7_moveit_config demo.launch
+  
+  rosrun jaka_planner task1
 
-roslaunch easy_handeye jaka_eye_to_hand_calibration.launch
+- #### 常用命令
+  realsense-viewer
 
-#### 测试
-roslaunch easy_handeye publish.launch
+- #### 查看节点与话题关系
+  rqt_graph
 
-#### 查看相机与机械臂基座标系的TF转换：
-rosrun tf tf_echo /Link_0 /camera_color_frame
+- #### 生成TF树pdf
+  rosrun tf view_frames
 
-检测到marker标签，会显示marker在相机坐标系下的位姿：
-rostopic echo /aruco_single/pose
-
-
-#### yolov5 node
-
-roslaunch realsense2_camera rs_camera.launch
-
-roslaunch yolov5_ros yolo_v5.launch
-
-roslaunch jaka_planner moveit_server.launch ip:=192.168.1.100 model:=zu7 
-
-roslaunch jaka_zu7_moveit_config demo.launch
-
-rosrun jaka_planner task1
-
-#### 常用命令
-realsense-viewer
-
-查看节点与话题关系
-rqt_graph
-
-生成TF树pdf
-rosrun tf view_frames
-
-查看TF树
-rosrun rqt_tf_tree rqt_tf_tree
-
-rostopic echo /object_position
+- #### 查看TF树
+  rosrun rqt_tf_tree rqt_tf_tree
+  
+  rostopic echo /object_position
 
 
 
