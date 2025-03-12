@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!-- AR标签追踪启动文件 -->
+<launch>
+    <!-- AR标签的实际尺寸，单位是厘米 -->
+    <!-- 这个参数非常重要，必须与实际使用的AR标签物理尺寸相匹配 -->
+    <arg name="marker_size" default="5.0" />
+
+    <!-- 新标签检测时允许的最大误差值 -->
+    <!-- 该值越小，检测越严格，可能会降低误识别率，但也可能导致有效标签被忽略 -->
+    <arg name="max_new_marker_error" default="0.08" />
+
+    <!-- 追踪已检测到的标签时允许的最大误差值 -->
+    <!-- 该值影响跟踪标签时的容错程度，值越大跟踪越容易，但精度可能降低 -->
+    <arg name="max_track_error" default="0.2" />
+
+    <!-- D435i相机的彩色图像话题 -->
+    <!-- 确保这个话题名称与实际相机发布的话题一致 -->
+    <arg name="cam_image_topic" default="/camera/color/image_raw" />
+
+    <!-- D435i相机的相机参数话题 -->
+    <!-- 包含相机的内参矩阵、畸变系数等重要参数 -->
+    <arg name="cam_info_topic" default="/camera/color/camera_info" />
+
+    <!-- 输出坐标系的名称 -->
+    <!-- AR标签的位置将在这个坐标系下表示 -->
+    <arg name="output_frame" default="camera_link" />
+
+    <!-- 启动AR标签追踪节点 -->
+    <node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" respawn="false" output="screen">
+        <!-- 将上面定义的参数传递给节点 -->
+        <param name="marker_size" type="double" value="$(arg marker_size)" />
+        <param name="max_new_marker_error" type="double" value="$(arg max_new_marker_error)" />
+        <param name="max_track_error" type="double" value="$(arg max_track_error)" />
+        <param name="output_frame" type="string" value="$(arg output_frame)" />
+
+        <!-- 重映射相机话题 -->
+        <!-- 将节点需要的默认话题名称映射到实际使用的话题名称 -->
+        <remap from="camera_image" to="$(arg cam_image_topic)" />
+        <remap from="camera_info" to="$(arg cam_info_topic)" />
+    </node>
+</launch>

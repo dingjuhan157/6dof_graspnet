@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- rviz -->
+    <arg name="open_rviz" default="true"/>
+    
+    <!-- 设置相机坐标系和世界坐标系对应关系 -->
+    <node pkg="tf" type="static_transform_publisher" name="world_to_camera" 
+          args="0 0 0.5 0 1.57 0 world camera_link 10"/>
+    
+    <!-- 启动D435i相机节点 -->
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="align_depth" value="true"/>
+    </include>  
+    
+    <!-- 启动ar_track节点 -->
+    <include file="$(find robot_control)/launch/ar_track.launch"/>  
+    
+    <!-- 启动 rviz -->
+    <group if="$(arg open_rviz)">
+        <node pkg="rviz" type="rviz" name="rviz" 
+              args="-d $(find robot_control)/rviz/ar_track.rviz"/>
+    </group>
+</launch>

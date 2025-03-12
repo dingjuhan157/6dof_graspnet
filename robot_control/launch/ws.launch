@@ -8,9 +8,8 @@
 
   <!-- Launch the node that publishes distance information -->
   <!-- Assuming there's a node that publishes to the topic the robot_control_node subscribes to -->
-  <node pkg="yolov5_ros" type="yolo_v5.py" name="yolov5_ros" output="screen" >
-    <!-- Add any parameters for the distance publisher -->
-  </node>
+  <!-- <node pkg="yolov5_ros" type="yolo_v5.py" name="yolov5_ros" output="screen" >
+  </node> -->
 
   <!-- You can add more nodes or include other launch files as needed -->
 </launch>
